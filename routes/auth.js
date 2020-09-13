@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../modals/Users');
+const auth = require('../middleware/auth');
+
 
 
 
@@ -13,8 +15,16 @@ const User = require('../modals/Users');
 //@ desc      GET logged in user
 //@access     PRIVATE
 
-router.get('/',(req,res)=>{
-    res.send('get logged in user');
+router.get('/',auth,async (req,res)=>{
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        res.json(user);
+
+
+    }catch (e) {
+        console.error(e.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 
