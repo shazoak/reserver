@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c47446a-655c-4f4a-b831-e5cbfbef7638" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/middleware/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modals/Order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/orders.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599994821765</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="adding auth middleware and protecting private routs with it">
+      <created>1599995594638</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1599995594638</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,13 +108,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="a new user can register now .... (registration is done)" />
     <MESSAGE value="user can log in and credentials are being checked if there is not  an error and a user exists it returns a web token" />
-    <option name="LAST_COMMIT_MESSAGE" value="user can log in and credentials are being checked if there is not  an error and a user exists it returns a web token" />
+    <MESSAGE value="adding auth middleware and protecting private routs with it" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding auth middleware and protecting private routs with it" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="393" y="7" key="CommitChangelistDialog2" timestamp="1599994821155">
+    <state x="137" y="7" key="CommitChangelistDialog2" timestamp="1599999202471">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="393" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1599994821155" />
+    <state x="137" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1599999202471" />
     <state x="651" y="305" width="258" height="213" key="Github.ShareDialog" timestamp="1599989998481">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
