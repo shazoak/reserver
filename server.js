@@ -19,6 +19,9 @@ app.use(express.json({extended:false}));
 app.use('/api/users',require('./routes/users'));
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/orders',require('./routes/orders'));
+app.use('/api/admin',require('./routes/admin'));
+app.use('/api/admin-auth',require('./routes/admin-auth'));
+app.use('/api/tables',require('./routes/tables'));
 
 
 

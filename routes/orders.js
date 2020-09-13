@@ -3,7 +3,6 @@ const router = express.Router();
 const {check,validationResult} = require('express-validator');
 const auth = require('../middleware/auth');
 
-const User = require('../modals/Users');
 const Order = require('../modals/Order');
 
 
@@ -57,8 +56,6 @@ router.post('/',[auth,[
 
 
 });
-
-
 
 
 
