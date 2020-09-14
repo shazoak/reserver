@@ -8,7 +8,7 @@ const Navigationbar = () =>{
 
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Tables | Reservation</Navbar.Brand>
+            <Navbar.Brand href="/">Tables | Reservation</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
@@ -23,8 +23,8 @@ const Navigationbar = () =>{
                     </NavDropdown>
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#login">Login</Nav.Link>
-                    <Nav.Link eventKey={2} href="#register">
+                    <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link eventKey={2} href="/register">
                         Register
                     </Nav.Link>
                 </Nav>
