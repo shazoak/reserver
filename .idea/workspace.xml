@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c47446a-655c-4f4a-b831-e5cbfbef7638" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/actions/orderActions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/actions/types.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/orders/OrderItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/orders/Orders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/orderReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigationbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigationbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Myopenorders.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Myopenorders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modals/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/modals/Order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/orders.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +76,8 @@
       <updated>1599987926716</updated>
       <workItem from="1599987935463" duration="1324000" />
       <workItem from="1599989439887" duration="31000" />
-      <workItem from="1600067635441" duration="16869000" />
+      <workItem from="1600067635441" duration="17076000" />
+      <workItem from="1600154023733" duration="5574000" />
     </task>
     <task id="LOCAL-00001" summary="a new user can register now .... (registration is done)">
       <created>1599992927830</created>
@@ -128,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600099646914</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="adding register and login forms + implementing router for client app">
+      <created>1600105737127</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1600105737127</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,13 +170,14 @@
     <MESSAGE value="Adding Crud functionality for tables table" />
     <MESSAGE value="adding react app for front end and adding dev script to package.json to run both front end and backend servers with cuncurrently package" />
     <MESSAGE value="adding customer page (getting all open and in-Q orders )(adding new order form&#10;)" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding customer page (getting all open and in-Q orders )(adding new order form&#10;)" />
+    <MESSAGE value="adding register and login forms + implementing router for client app" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding register and login forms + implementing router for client app" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1600099646234">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1600105736485">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1600099646234" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1600105736485" />
     <state x="147" y="65" key="DiffContextDialog" timestamp="1600099889718">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -171,21 +186,21 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="651" y="305" width="258" height="213" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1599989998481" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1600099906068">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1600105802226">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600099906068" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600105802226" />
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600099682756">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1600099682756" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1600101833240">
+    <state x="425" y="187" key="run.anything.popup" timestamp="1600159980868">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1600101833240" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1600082644582">
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1600159980868" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1600160160480">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1600082644582" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1600160160480" />
   </component>
 </project>

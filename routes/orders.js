@@ -10,9 +10,9 @@ const Order = require('../modals/Order');
 //@ desc      Get all users orders
 //@access     PRIVATE
 
-router.get('/',auth,async (req,res) =>{
+router.get('/',async (req,res) =>{
     try{
-        const orders = await Order.find({user:req.user.id}).sort({date:-1});
+        const orders = await Order.find().sort({date:-1});
         res.json(orders);
 
     }catch (e) {
@@ -35,12 +35,12 @@ router.post('/',[auth,[
         return res.status(400).json({errors:errors.array()});
     }
 
-    const {enrolment,status,date,Q} = req.body;
+    const {enrolment,status,date,Q,tables} = req.body;
 
 
     try {
         const newOrder = new Order({
-            enrolment,status,date,Q,user:req.user.id
+            enrolment,status,date,Q,tables,user:req.user.id
         });
 
         const order = await newOrder.save();

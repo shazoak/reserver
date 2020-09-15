@@ -4,25 +4,30 @@ import Navigationbar from "./components/layout/Navigationbar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Redirect from "react-router-dom/es/Redirect";
+import {Redirect} from "react-router-dom/Redirect";
+
+import {Provider} from 'react-redux' ;
+import store from "./store";
 
 
 const App = ()  =>{
 
   return (
-      <Router>
-          <Fragment>
-              <Navigationbar/>
-              <Switch>
-                  <Route exact path='/' component={Home} />
-                  <Route exact path='/login' component={Login} />
-                  <Route exact path='/register' component={Register} />
-                  <Route exact={true} path='*'>
-                      <Redirect path='/' component={Home}/>
-                  </Route>
-              </Switch>
-          </Fragment>
-      </Router>
+      <Provider store={store}>
+          <Router>
+              <Fragment>
+                  <Navigationbar/>
+                  <Switch>
+                      <Route exact path='/' component={Home} />
+                      <Route exact path='/login' component={Login} />
+                      <Route exact path='/register' component={Register} />
+                      <Route exact={true} path='*'>
+                          <Redirect path='/' component={Home}/>
+                      </Route>
+                  </Switch>
+              </Fragment>
+          </Router>
+      </Provider>
 
   );
 };

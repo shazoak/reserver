@@ -18,6 +18,9 @@ const OrderSchema = mongoose.Schema({
     },
     Q:{
         type:String,
+    },
+    tables:{
+        type:String,
     }
 });
 

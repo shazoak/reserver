@@ -1,12 +1,22 @@
-import React,{Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
+import {connect} from  'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import Badge from "react-bootstrap/Badge";
+import PropTypes from 'prop-types';
+import {getOrders} from "../actions/orderActions";
+import OrderItem from "./orders/OrderItem";
 
 
-const Myopenorders = () => {
+const Myopenorders = ({order:{orders,loading},getOrders}) => {
+
+    useEffect(()=>{
+        getOrders();
+        // eslint-disable-next-line
+    },[]);
+
+    if (loading || orders === null){
+        return <h4 className="text-center">Loading...</h4>;
+    }
 
     return(
         <Fragment>
@@ -14,75 +24,25 @@ const Myopenorders = () => {
                 <br/>
                 <h5>My Open Orders</h5>
                 <hr/>
-                <CardDeck>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Tables : T1 T2</Card.Title>
-                            <Card.Text>
-                                <Button variant="light">
-                                    Enrolment :  <Badge variant="light">9</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Status :  <Badge variant="light">Open</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Queue-no :  <Badge variant="light"> </Badge>
-                                </Button>
-                            </Card.Text>
-                            <Button variant="danger">Close </Button>{'\n'}
-                            <Button variant="dark">Edit </Button>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Opened since 9-14-2020 16:47:21</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card >
-                        <Card.Body>
-                            <Card.Title>Tables : T5 T4 T7</Card.Title>
-                            <Card.Text>
-                                <Button variant="light">
-                                    Enrolment :  <Badge variant="light">12</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Status :  <Badge variant="light">In-Q</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Queue-no :  <Badge variant="light">101</Badge>
-                                </Button>
-                            </Card.Text>
-                            <Button variant="danger">Close </Button>{'\n'}
-                            <Button variant="dark">Edit </Button>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Opened since 9-14-2020 16:47:21</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Tables : T10 T20 T30</Card.Title>
-                            <Card.Text>
-                                <Button variant="light">
-                                    Enrolment :  <Badge variant="light">19</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Status :  <Badge variant="light">In-Q</Badge>
-                                </Button>
-                                <Button variant="light">
-                                    Queue-no :  <Badge variant="light">104</Badge>
-                                </Button>
-                            </Card.Text>
-                            <Button variant="danger">Close </Button>{'\n'}
-                            <Button variant="dark">Edit </Button>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Opened since 9-14-2020 16:47:21</small>
-                        </Card.Footer>
-                    </Card>
-                </CardDeck>
+                {!loading && orders.length === 0 ? (
+                    <p> No Orders to show...</p>
+                ) : (
+                    <CardDeck>
+                        {orders.map(order => <OrderItem order={order} key={order._id}/>)}
+                    </CardDeck>
+                )}
             </div>
         </Fragment>
 
     );
 };
 
-export default Myopenorders;
+Myopenorders.propTypes = {
+    order : PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state =>({
+    order : state.order
+});
+
+export default connect(mapStateToProps,{getOrders})(Myopenorders);

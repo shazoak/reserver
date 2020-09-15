@@ -1,0 +1,29 @@
+//users
+
+
+//admin
+
+
+// orders
+
+export const GET_ORDERS ='GET_ORDERS';
+export const ADD_ORDER ='ADD_ORDER';
+export const DELETE_ORDER ='DELETE_ORDER';
+export const UPDATE_ORDER ='UPDATE_ORDER';
+export const ORDERS_SET_CURRENT ='ORDERS_SET_CURRENT';
+export const ORDERS_CLEAR_CURRENT ='ORDERS_CLEAR_CURRENT';
+export const CLEAR_ORDERS ='CLEAR_ORDERS';
+export const ORDERS_SET_LOADING ='ORDERS_SET_LOADING';
+export const ORDERS_ERROR ='ORDERS_ERROR';
+
+// tables
+
+export const GET_TABLES ='GET_TABLES';
+export const ADD_TABLE ='ADD_TABLE';
+export const DELETE_TABLE ='DELETE_TABLE';
+export const UPDATE_TABLE ='UPDATE_TABLE';
+export const TABLES_SET_CURRENT ='TABLES_SET_CURRENT';
+export const TABLES_CLEAR_CURRENT ='TABLES_CLEAR_CURRENT';
+export const CLEAR_TABLES ='CLEAR_TABLES';
+export const TABLES_SET_LOADING ='TABLES_SET_LOADING';
+export const TABLES_ERROR ='TABLES_ERROR';
