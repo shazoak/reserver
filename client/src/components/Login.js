@@ -1,39 +1,40 @@
 import React from "react";
-import Form from 'react-bootstrap/Form';
-import Button from "react-bootstrap/Button";
+import  {reduxForm , Field} from "redux-form";
+import {renderField} from "./form";
+import {connect} from "react-redux";
+import {userLoginAttempt} from "../actions/authActions";
 
+const Login = (props) => {
 
-const Login = () =>{
+    const onSubmit = (values) =>{
+        // console.log(values);
+        return props.userLoginAttempt(values);
+
+    };
+
+    const {handleSubmit} = props;
+
     return(
-
         <div className='container border col-md-4 ' style={{
-            position: 'absolute', left: '50%', top: '30%',
+            position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
         }}>
-
-            <Form>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-
-                <div className="text-center">
-                    <Button variant="primary" type="submit">
-                        Login
-                    </Button>
-                </div>
-            </Form>
-
+             <form className="mt-4" onSubmit={handleSubmit(onSubmit.bind())}>
+                 <Field name="email" label="Email" type="text" component={renderField} />
+                 <Field name="password" label="Password " type="password" component={renderField} />
+                 <button type="submit" className="btn btn-primary btn-big btn-block">Login</button>
+             </form>
         </div>
     );
+
 };
 
-export default Login;
+const mapDispatchToProps = {
+    userLoginAttempt
+};
+
+
+
+export default reduxForm({
+    form:'LoginForm'
+})(connect(null,mapDispatchToProps)(Login));

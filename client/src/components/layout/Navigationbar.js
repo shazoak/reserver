@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 const Navigationbar = () =>{
 
     return(
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/">Tables | Reservation</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

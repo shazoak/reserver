@@ -11,7 +11,7 @@ const OrderItem = ({order}) => {
 
 
     return(
-        <Card>
+        <Card style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>Tables : {tables ? (tables): ("T20,T30")}</Card.Title>
                 <Card.Text>

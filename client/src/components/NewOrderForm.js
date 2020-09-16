@@ -1,8 +1,13 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
+import {connect} from 'react-redux';
+import {addOrders} from "../actions/orderActions";
+import PropTypes from 'prop-types';
 
-const NewOrderForm = () => {
+
+const NewOrderForm = ({addOrders}) => {
+    // const[enrolment,setEnrolment] = useState('');
 
     return(
         <Form>
@@ -13,7 +18,7 @@ const NewOrderForm = () => {
             <Form.Group controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary"  onClick={() => console.log("hi there")}>
                 Submit
             </Button>
         </Form>
@@ -21,5 +26,10 @@ const NewOrderForm = () => {
 
 };
 
+NewOrderForm.propTypes = {
+    addOrders: PropTypes.func.isRequired,
+};
 
-export default NewOrderForm;
+
+
+export default connect(null,{addOrders})( NewOrderForm);

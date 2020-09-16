@@ -5,6 +5,7 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import PropTypes from 'prop-types';
 import {getOrders} from "../actions/orderActions";
 import OrderItem from "./orders/OrderItem";
+import Preloader from "./layout/Preloader";
 
 
 const Myopenorders = ({order:{orders,loading},getOrders}) => {
@@ -15,7 +16,17 @@ const Myopenorders = ({order:{orders,loading},getOrders}) => {
     },[]);
 
     if (loading || orders === null){
-        return <h4 className="text-center">Loading...</h4>;
+
+        return (
+            <div className="container border">
+                <br/>
+                <h5>My Open Orders</h5>
+                <hr/>
+                <div className="text-center">
+                    <Preloader/>
+                </div>
+            </div>
+        );
     }
 
     return(
@@ -39,6 +50,7 @@ const Myopenorders = ({order:{orders,loading},getOrders}) => {
 
 Myopenorders.propTypes = {
     order : PropTypes.object.isRequired,
+    getOrders: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state =>({

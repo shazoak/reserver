@@ -1,5 +1,5 @@
 
-import {GET_ORDERS,ORDERS_SET_LOADING,ORDERS_ERROR} from '../actions/types';
+import {GET_ORDERS,ORDERS_SET_LOADING,ORDERS_ERROR,ADD_ORDER} from '../actions/types';
 const initialState = {
     orders:null,
     current:null,
@@ -11,6 +11,13 @@ const initialState = {
 
 export  default (state = initialState , action) => {
     switch (action.type) {
+
+        case ADD_ORDER:
+            return {
+                ...state,
+                orders: [...state.orders,action.payload],
+                loading: false
+            };
 
         case GET_ORDERS:
             return {

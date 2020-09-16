@@ -59,7 +59,7 @@ router.post('/',[
 
         const payload={
             user:{
-                id:user.id
+                id:user._id
             }
         };
 
@@ -70,7 +70,7 @@ router.post('/',[
                 throw err;
             }
             else {
-                res.json({token});
+                res.json({userId:user.id,token});
             }
         });
 
