@@ -2,6 +2,9 @@ import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 
+import {connect} from 'react-redux';
+import PropTypes from  'prop-types';
+
 
 const Register = () => {
 
@@ -42,4 +45,19 @@ const Register = () => {
 
 };
 
-export default Register;
+
+const propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired
+
+};
+
+const mapStateToProps = state =>({
+    isAuthenticated: state.auth.isAuthenticated,
+    error : state.error
+});
+
+
+
+
+export default connect(mapStateToProps,{})(Register);

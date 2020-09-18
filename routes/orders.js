@@ -26,21 +26,21 @@ router.get('/',async (req,res) =>{
 //@ desc      Add new order
 //@access     PRIVATE
 
-router.post('/',[auth,[
+router.post('/',[
     check('enrolment','Enrolment is required').not().isEmpty()
-]], async (req,res) =>{
+], async (req,res) =>{
 
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
     }
 
-    const {enrolment,status,date,Q,tables} = req.body;
+    const {enrolment,status,date,Q,tables,msg} = req.body;
 
 
     try {
         const newOrder = new Order({
-            enrolment,status,date,Q,tables,user:req.user.id
+            enrolment,status,date,Q,tables,msg
         });
 
         const order = await newOrder.save();
@@ -63,9 +63,37 @@ router.post('/',[auth,[
 //@ desc      update order
 //@access     PRIVATE
 
-router.get('/',(req,res) =>{
-    res.send('Get all orders');
+router.get('/',[
+    check('enrolment','Enrolment is required').not().isEmpty()
+],async (req,res) =>{
+    try {
+        await Order.findByIdAndUpdate(req.params.id, req.body);
+        await Order.save();
+        res.send(order)
+    } catch (err) {
+        res.status(500).send(err)
+    }
 });
+
+
+//@route      DELETE api/orders/:id
+//@ desc      DELETE order
+//@access     PRIVATE
+
+router.delete('/:id',async (req,res) =>{
+
+    try {
+        const order = await Order.findByIdAndDelete(req.params.id);
+
+        if (!order) res.status(404).send("No order found");
+        res.status(200).send();
+    } catch (err) {
+        res.status(500).send(err)
+    }
+
+
+});
+
 
 
 

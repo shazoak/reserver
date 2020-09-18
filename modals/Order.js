@@ -21,6 +21,9 @@ const OrderSchema = mongoose.Schema({
     },
     tables:{
         type:String,
+    },
+    msg:{
+        type:String,
     }
 });
 

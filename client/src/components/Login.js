@@ -1,18 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import  {reduxForm , Field} from "redux-form";
 import {renderField} from "./form";
 import {connect} from "react-redux";
-import {userLoginAttempt} from "../actions/authActions";
+// import {userLoginAttempt} from "../actions/authActions";
 
 const Login = (props) => {
 
     const onSubmit = (values) =>{
         // console.log(values);
-        return props.userLoginAttempt(values);
+        // return props.userLoginAttempt(values);
 
     };
 
     const {handleSubmit} = props;
+
+    useEffect(()=>{
+        if (props.isAuthenticated){
+            props.history.push('/')
+        }
+
+    });
 
     return(
         <div className='container border col-md-4 ' style={{
@@ -30,11 +37,13 @@ const Login = (props) => {
 };
 
 const mapDispatchToProps = {
-    userLoginAttempt
+    // userLoginAttempt
 };
 
-
+const mapStateToProps = state =>({
+    auth : state.auth
+});
 
 export default reduxForm({
     form:'LoginForm'
-})(connect(null,mapDispatchToProps)(Login));
+})(connect(mapStateToProps,mapDispatchToProps)(Login));

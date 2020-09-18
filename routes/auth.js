@@ -11,15 +11,14 @@ const auth = require('../middleware/auth');
 
 
 
-//@route      GET api/auth
-//@ desc      GET logged in user
+//@route      GET api/auth/user
+//@ desc      GET user data
 //@access     PRIVATE
 
-router.get('/',auth,async (req,res)=>{
+router.get('/user',auth,async (req,res)=>{
     try {
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
-
 
     }catch (e) {
         console.error(e.message);
@@ -70,7 +69,7 @@ router.post('/',[
                 throw err;
             }
             else {
-                res.json({userId:user.id,token});
+                res.json({user:{id:user.id,name:user.name,email:user.email},token});
             }
         });
 

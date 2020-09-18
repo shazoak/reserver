@@ -1,5 +1,4 @@
-
-import {GET_ORDERS,ORDERS_SET_LOADING,ORDERS_ERROR,ADD_ORDER} from '../actions/types';
+import {GET_ORDERS,ADD_ORDER,DELETE_ORDER,ORDER_LOADING} from '../actions/types';
 const initialState = {
     orders:null,
     current:null,
@@ -8,9 +7,14 @@ const initialState = {
 };
 
 
-
 export  default (state = initialState , action) => {
     switch (action.type) {
+
+        case DELETE_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter(order => order._id !== action.payload)
+            };
 
         case ADD_ORDER:
             return {
@@ -22,22 +26,14 @@ export  default (state = initialState , action) => {
         case GET_ORDERS:
             return {
                 ...state,
-                orders :action.payload,
+                orders: action.payload,
                 loading: false
             };
-
-        case ORDERS_SET_LOADING:
+        case ORDER_LOADING:
             return {
                 ...state,
                 loading: true
             };
-        case ORDERS_ERROR:
-            console.error(action.payload);
-            return {
-                ...state,
-                error: action.payload
-            };
-
         default:
             return state ;
 
