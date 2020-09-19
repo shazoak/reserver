@@ -26,9 +26,9 @@ router.get('/',async (req,res) =>{
 //@ desc      Add new order
 //@access     PRIVATE
 
-router.post('/',[
+router.post('/',[auth,[
     check('enrolment','Enrolment is required').not().isEmpty()
-], async (req,res) =>{
+]], async (req,res) =>{
 
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -80,7 +80,7 @@ router.get('/',[
 //@ desc      DELETE order
 //@access     PRIVATE
 
-router.delete('/:id',async (req,res) =>{
+router.delete('/:id',auth,async (req,res) =>{
 
     try {
         const order = await Order.findByIdAndDelete(req.params.id);

@@ -15,15 +15,10 @@ const auth = require('../middleware/auth');
 //@ desc      GET user data
 //@access     PRIVATE
 
-router.get('/user',auth,async (req,res)=>{
-    try {
-        const user = await User.findById(req.user.id).select('-password');
-        res.json(user);
-
-    }catch (e) {
-        console.error(e.message);
-        res.status(500).send('Server Error');
-    }
+router.get('/user',auth, (req,res)=>{
+    User.findById(req.user.id)
+        .select('-password')
+        .then(user => res.json(user));
 });
 
 
@@ -31,55 +26,51 @@ router.get('/user',auth,async (req,res)=>{
 //@ desc      Auth user & get token
 //@access     Public
 
-router.post('/',[
-    check('email','Please include a valid email').isEmail(),
-    check('password','Password id required').exists(),
+router.post('/', (req,res)=>{
 
-],async (req,res)=>{
+    const {email , password } = req.body;
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()});
+    if(!email || !password){
+        return res.status(400).json({msg:'Please Enter All Fields'});
     }
 
-    const {email,password} = req.body;
-    try {
-        let user = await User.findOne({email});
-
-        if (!user){
-            return res.status(400).json({msg:'Invalid Credentials'});
-        }
-
-        const isMatch = await bcrypt.compare(password,user.password);
-
-        if(!isMatch){
-            return res.status(400).json({msg:'invalid credentials'})
-        }
-
-        const payload={
-            user:{
-                id:user._id
+    User.findOne({email})
+        .then(user =>{
+            console.log(user.email);
+            if(!user){
+                return res.status(400).json({msg:'User Does Not Exists'})
             }
-        };
 
-        jwt.sign(payload,config.get('jwtSecret'),{
-            expiresIn: 360000
-        },(err,token)=>{
-            if (err){
-                throw err;
-            }
-            else {
-                res.json({user:{id:user.id,name:user.name,email:user.email},token});
-            }
-        });
+            bcrypt.compare(password,user.password)
+                .then(isMatch =>{
+                    if(!isMatch){
+                        return res.status(400).json({msg:'Invalid Credentials'})
+                    }
 
+                    jwt.sign(
+                        { id:user.id },
+                        config.get('jwtSecret'),
+                        {expiresIn : 3600},
+                        (err,token)=>{
+                            if(err){throw err}
 
+                            res.json({
+                                token,
+                                user:{
+                                    id:user.id,
+                                    name:user.name,
+                                    email:user.email,
 
-    }catch (e) {
-        console.error(e.message);
-        res.status(500).send('Server Error');
-    }
+                                }
+                            })
+
+                        }
+                    );
+                    })
+                })
+
 });
+
 
 
 

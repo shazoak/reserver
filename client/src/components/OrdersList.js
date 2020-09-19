@@ -22,8 +22,17 @@ class OrdersList extends Component{
     onEditClick = (id) =>{
         this.props.deleteOrder(id)
     };
+
+    static propTypes = {
+        getOrders : PropTypes.func.isRequired,
+        order : PropTypes.object.isRequired,
+        isAuthenticated : PropTypes.bool
+    };
+
+
     render() {
         const {orders,loading} = this.props.order;
+        const {isAuthenticated}=this.props.auth;
 
         if (loading || orders === null){
 
@@ -35,6 +44,18 @@ class OrdersList extends Component{
                     <div className="text-center">
                         <Preloader/>
                     </div>
+                </div>
+            );
+        }
+
+
+        if(isAuthenticated === false){
+            console.log('im here');
+            return(
+                <div className="container border">
+                    <br/>
+                    <h5>Please Login or Register </h5>
+                    <hr/>
                 </div>
             );
         }
@@ -104,7 +125,8 @@ OrdersList.propTypes ={
 };
 
 const mapStateToProps = (state) =>({
-    order:state.order
+    order:state.order,
+    auth:state.auth
 });
 
 

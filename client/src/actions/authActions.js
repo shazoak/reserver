@@ -1,81 +1,103 @@
-import {USER_LOADED,USER_LOADING,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT_SUCCESS,REGISTER_FAIL,REGISTER_SUCCESS} from '../actions/types';
+import {
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS, LOGOUT_SUCCESS,LOGIN_SUCCESS,LOGIN_FAIL
+} from '../actions/types';
 import {returnErrors} from "./errorActions";
+import axios from 'axios';
 
 
-export const loadUser = () => async (dispatch,getState)=> {
+export const loadUser = () =>  (dispatch,getState)=> {
 
+    dispatch({
+        type:USER_LOADING
+    });
 
-    try{
-        dispatch({type:USER_LOADING});
+    axios.get('/api/auth/user',tokenConfig(getState))
+        .then(res => dispatch({
+            type:USER_LOADED,
+            payload: res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data,err.response.status , 'REGISTER_FAIL'));
+            dispatch({
+                type:AUTH_ERROR
+        })})
 
-        const res = await fetch('/api/auth/user',{headers:{
-            "x-auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY2MmY4NTgzODBhOTM0NzQwYWI0ZWRlIn0sImlhdCI6MTYwMDMyMjAxNSwiZXhwIjoxNjAwNjgyMDE1fQ.ODCLvZtjSqcERfBgITpV_R5SpcbayCJLBZJsmaowUjg"
-            }});
-        const data = res.json();
-
-        dispatch({
-            type: USER_LOADED,
-            payload : data
-        })
-
-
-    }catch (err) {
-
-        console.error(err);
-
-        // dispatch(returnErrors(err.response.data,err.response.status));
-        // dispatch({
-        //     type:AUTH_ERROR,
-        //     payload: err.message
-        // })
-
-    }
-
-    // dispatch({type:USER_LOADING});
-    //
-    // try{
-    //     const config =tokenConfig();
-    //
-    //     console.log(config);
-    //
-    //     if(config){
-    //
-    //         const res = await fetch('/api/auth/user',config);
-    //         console.log(res);
-    //         const data = await res.json();
-    //
-    //         dispatch({
-    //             type: USER_LOADED,
-    //             payload : data
-    //         })
-    //
-    //     }
-    //     else {
-    //         dispatch(returnErrors("No token , Authorization denied","401"));
-    //         dispatch({
-    //             type:AUTH_ERROR,
-    //             payload: "No token , Authorization denied"
-    //         })
-    //     }
-    //
-    //
-    // }catch (err) {
-    //
-    //     if (err.response){
-    //
-    //         dispatch(returnErrors(err.response.data,err.response.status));
-    //         dispatch({
-    //             type:AUTH_ERROR,
-    //             payload: err.message
-    //         })
-    //     }
-    // }
 
 };
 
+
+// Register User
+
+export const register = ({name,email,password,password2}) => dispatch =>{
+
+    const config ={
+        headers:{
+            'Content-Type' : 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({name,email,password,password2});
+
+    axios.post('/api/users' ,body,config)
+        .then(res => dispatch({
+            type:REGISTER_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data,err.response.status , 'REGISTER_FAIL'));
+            dispatch({
+                type:REGISTER_FAIL
+            })
+        })
+};
+
+
+//Login User
+
+export const login = ({email,password}) => dispatch =>{
+
+    const config ={
+        headers:{
+            'Content-Type' : 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({email,password});
+
+    axios.post('/api/auth' ,body,config)
+        .then(res => dispatch({
+            type:LOGIN_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data,err.response.status , 'Login_FAIL'));
+            dispatch({
+                type:LOGIN_FAIL
+            })
+        })
+};
+
+
+
+
+
+
+//LogOut
+export const logout = ()=>{
+    return {
+        type:LOGOUT_SUCCESS
+    }
+};
+
+
+
 // setup config/headers and token
 
-export const tokenConfig  = getState =>{
+export const tokenConfig  = (getState) =>{
 
     const token = getState().auth.token;
 
@@ -84,76 +106,12 @@ export const tokenConfig  = getState =>{
             "content-type": "application/json"
         }
     };
+
     if(token){
         config.headers['x-auth-token'] = token;
-        return config;
-    }
-    else {
-        return config;
     }
 
-
+    return config;
 
 };
 
-
-
-
-
-// dispatch({type:USER_LOADING});
-//
-// const token = getState().auth.token;
-//
-// const config = {
-//     headers:{
-//         "content-type" : "application/json"
-//     }
-// };
-//
-// // config.headers['x-auth-token'] = 'its me';
-// if(token){
-//     config.headers['x-auth-token'] = token;
-// }
-//
-//
-// fetch('/api/auth/user',config)
-//     .then(res => dispatch({
-//         type: USER_LOADED,
-//         payload:res.data
-//     }))
-//     .catch(err =>{
-//         dispatch(returnErrors(err.response.data,err.response.status));
-//         dispatch({
-//             type :AUTH_ERROR
-//         });
-//     });
-
-
-// export const userLoginAttempt = ({email , password}) => async dispatch =>{
-//     try{
-//
-//         const res = await fetch('api/auth',{
-//             method:'POST',
-//             body:JSON.stringify({email,password}),
-//             headers:{
-//                 'Content-Type' :'application/json'
-//             }
-//         });
-//
-//         const data = await res.json();
-//
-//         console.log(data);
-//
-//         dispatch({
-//             type: USER_LOGIN_SUCCESS,
-//             payload : data
-//         })
-//
-//
-//     }catch (e) {
-//         dispatch({
-//             type:USER_LOGIN_ERROR,
-//             payload: e.message
-//         })
-//     }
-// };

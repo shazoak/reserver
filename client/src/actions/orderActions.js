@@ -1,79 +1,39 @@
-import {GET_ORDERS,ORDER_LOADING, ADD_ORDER, DELETE_ORDER,ORDERS_ERROR} from './types';
+import {GET_ORDERS,ORDER_LOADING, ADD_ORDER, DELETE_ORDER} from './types';
+import {tokenConfig} from "./authActions";
+import {returnErrors} from "./errorActions";
+import axios from 'axios';
 
 
 export const getOrders = () => async dispatch => {
     dispatch(setOrdersLoading());
-    try {
 
-        const res = await fetch('/api/orders');
-        const data = await res.json();
-
+    axios.get('/api/orders').then(res =>{
         dispatch({
-            type: GET_ORDERS,
-            payload : data
+            type:GET_ORDERS,
+            payload:res.data
         })
-
-
-    }catch (e) {
-        dispatch({
-            type:ORDERS_ERROR,
-            payload: e.message
-        })
-
-    }
+    }).catch(err => dispatch(returnErrors(err.response.data , err.response.status)))
 
 };
 
-export const deleteOrder = (_id) => async dispatch => {
+export const deleteOrder = (_id) => (dispatch,getState) => {
 
-    try {
-        await fetch(`/api/orders/${_id}`,{
-            method:'DELETE'
-        });
-        // const data = await res.json();
-
+    axios.delete(`api/orders/${_id}`,tokenConfig(getState)).then(res=>{
         dispatch({
-            type: DELETE_ORDER,
-            payload : _id
+            type:DELETE_ORDER,
+            payload:_id
         })
+    }).catch(err => dispatch(returnErrors(err.response.data , err.response.status)))
 
-
-    }catch (e) {
-        dispatch({
-            type:ORDERS_ERROR,
-            payload: e.message
-        })
-
-    }
 };
 
-export const addOrder = order =>async dispatch => {
-
-    try {
-        const res = await fetch('/api/orders',{
-            method:'POST',
-            body:JSON.stringify(order),
-            headers:{
-                'Content-Type' :'application/json'
-            }
-        });
-        const data = await res.json();
-
+export const addOrder = order => (dispatch,getState) => {
+    axios.post('/api/orders' ,order ,tokenConfig(getState)).then(res=>{
         dispatch({
-            type: ADD_ORDER,
-            payload : data
+            type:ADD_ORDER,
+            payload:res.data
         })
-
-
-    }catch (e) {
-        dispatch({
-            type:ORDERS_ERROR,
-            payload: e.message
-        })
-
-    }
-
-
+    }).catch(err => dispatch(returnErrors(err.response.data , err.response.status)))
 
 };
 

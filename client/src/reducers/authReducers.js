@@ -3,7 +3,7 @@ import {USER_LOADED,USER_LOADING,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT_SUCC
 const initialState = {
     token:localStorage.getItem('token'),
     isAuthenticated : null ,
-    isLoading:true,
+    isLoading:false,
     error:null,
     user:null
 };
@@ -14,6 +14,7 @@ export  default (state = initialState , action) => {
     switch (action.type) {
 
         case USER_LOADING:
+
             return {
                 ...state,
                 isLoading: true
