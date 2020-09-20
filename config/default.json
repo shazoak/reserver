@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://hamid:hamidreza@cluster0.jnhmi.mongodb.net/dbtablereserver?retryWrites=true&w=majority",
-  "jwtSecret": "Secret"
+  "mongoURI": "your mongo atlas database connection key",
+  "jwtSecret": "your secret jwt token "
 }
